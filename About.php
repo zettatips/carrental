@@ -1,51 +1,12 @@
 <?php
 /*********************************************************************************
  *       Filename: About.php
- *       PHP 4.0 build 11/30/2001
- *		   PHP 5.0 build 10/12/2014
+ *		   PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
-//-------------------------------
-// About CustomIncludes begin
-
-include ("./common.php");
-include ("./Header.php");
-include ("./Footer.php");
-
-// About CustomIncludes end
-//-------------------------------
-
-session_start();
-
+function About_main()
+{
 //===============================
-// Save Page and File Name available into variables
-//-------------------------------
-$sFileName = "About.php";
-//===============================
-
-
-//===============================
-// About PageSecurity begin
-// About PageSecurity end
-//===============================
-
-//===============================
-// About Open Event begin
-// About Open Event end
-//===============================
-
-//===============================
-// About OpenAnyPage Event start
-// About OpenAnyPage Event end
-//===============================
-
-//===============================
-//Save the name of the form and type of action into the variables
-//-------------------------------
-$sAction = get_param("FormAction");
-$sForm = get_param("FormName");
-//===============================
-
 // About Show begin
 
 //===============================
@@ -55,20 +16,7 @@ $sForm = get_param("FormName");
 // HTML Page layout
 //-------------------------------
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>E-Car Rental - About Us</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-</head>
-<body>
- <?php Header_show() ?>
- <table class="table">
-<tr>
-  <td align="center">
+
    <table>
     <tr>
      <td valign="top">
@@ -96,51 +44,17 @@ $sForm = get_param("FormName");
     </tr>
    </table>
 
-</td>
-</tr>
-</table>
-
-  <?php Footer_show() ?>
-
-</body>
-</html>
 <?php
-
+}
 // About Show end
-
-//===============================
-// About Close Event begin
-// About Close Event end
-//===============================
-//********************************************************************************
-
 
 //===============================
 // Display Menu Form
 //-------------------------------
 function About_show()
 {
-  global $db;
-  global $styles;
+
   $sFormTitle = "About Us";
-
-//-------------------------------
-// About Open Event begin
-// About Open Event end
-//-------------------------------
-
-//-------------------------------
-// Set URLs
-//-------------------------------
-//-------------------------------
-// About Show begin
-//-------------------------------
-
-
-//-------------------------------
-// About BeforeShow Event begin
-// About BeforeShow Event end
-//-------------------------------
 
 //-------------------------------
 // Show fields
@@ -161,6 +75,5 @@ function About_show()
 // About Show end
 //-------------------------------
 }
-//===============================
 
 ?>

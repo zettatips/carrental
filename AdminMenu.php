@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: AdminMenu.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -27,16 +27,6 @@ $sFileName = "AdminMenu.php";
 // AdminMenu PageSecurity begin
 check_security(2);
 // AdminMenu PageSecurity end
-//===============================
-
-//===============================
-// AdminMenu Open Event begin
-// AdminMenu Open Event end
-//===============================
-
-//===============================
-// AdminMenu OpenAnyPage Event start
-// AdminMenu OpenAnyPage Event end
 //===============================
 
 //===============================
@@ -110,9 +100,6 @@ function Form_show()
   $fldField2 = "OrdersGrid.php";
   $fldField3 = "AdminVehicle.php";
   $fldField4 = "CategoriesGrid.php";
-  $fldField5 = "EditorialsGrid.php";
-  $fldField6 = "EditorialCatGrid.php";
-  $fldField = "CardTypesGrid.php";
 //-------------------------------
 // Form Show begin
 //-------------------------------
@@ -151,19 +138,6 @@ function Form_show()
      <tr>
        <td align="Center"><a href="<?php echo $fldField4; ?>">
         <span class="btn btn-success">Vehicle Categories</span></a></td>
-     </tr>
-     <tr>
-       <td align="Center"><a href="<?php echo $fldField5; ?>">
-        <span class="btn btn-success">Editorials</span></a></td>
-     </tr>
-     <tr>
-       <td align="Center"><a href="<?php echo $fldField6; ?>">
-        <span class="btn btn-success">Editorial Categories</span></a></td>
-     </tr>
-     <tr>
-       <td align="Center"><a href="<?php echo $fldField; ?>">
-        <span class="btn btn-success">Card Types</span></a></td>
-     </tr>
     </table>
     <br />
 

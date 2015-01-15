@@ -87,8 +87,11 @@ switch ($sForm) {
 
 <div class="col-md-4"></div>
 <div class="col-md-4">
-<?php  Record_show() ?>
-<?php  Orders_show() ?>
+  <?php  Record_show() ?>
+  <?php
+    if(!$_SESSION['admin'])
+    Orders_show();
+  ?>
 </div>
 <div class="col-md-4"></div>
 

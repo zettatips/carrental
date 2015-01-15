@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: MembersRecord.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -142,8 +142,6 @@ function Members_action($sAction)
   $fldphone = "";
   $fldaddress = "";
   $fldnotes = "";
-  $fldcard_type_id = "";
-  $fldcard_number = "";
 //-------------------------------
 
 //-------------------------------
@@ -191,8 +189,6 @@ function Members_action($sAction)
   $fldphone = get_param("phone");
   $fldaddress = get_param("address");
   $fldnotes = get_param("notes");
-  $fldcard_type_id = get_param("card_type_id");
-  $fldcard_number = get_param("card_number");
 
 //-------------------------------
 // Validate fields
@@ -219,9 +215,6 @@ function Members_action($sAction)
 
     if(!is_number($fldmember_level))
       $sMembersErr .= "The value in field Level* is incorrect.<br>";
-
-    if(!is_number($fldcard_type_id))
-      $sMembersErr .= "The value in field Credit Card Type is incorrect.<br>";
 
     if(strlen($fldmember_login) )
     {
@@ -263,9 +256,7 @@ function Members_action($sAction)
           "email," .
           "phone," .
           "address," .
-          "notes," .
-          "card_type_id," .
-          "card_number)" .
+          "notes)" .
           " values (" .
           tosql($fldmember_login, "Text") . "," .
           tosql($fldmember_password, "Text") . "," .
@@ -275,9 +266,7 @@ function Members_action($sAction)
           tosql($fldemail, "Text") . "," .
           tosql($fldphone, "Text") . "," .
           tosql($fldaddress, "Text") . "," .
-          tosql($fldnotes, "Text") . "," .
-          tosql($fldcard_type_id, "Number") . "," .
-          tosql($fldcard_number, "Text") .
+          tosql($fldnotes, "Text") .
           ")";
     break;
     case "update":
@@ -295,9 +284,7 @@ function Members_action($sAction)
           ",email=" . tosql($fldemail, "Text") .
           ",phone=" . tosql($fldphone, "Text") .
           ",address=" . tosql($fldaddress, "Text") .
-          ",notes=" . tosql($fldnotes, "Text") .
-          ",card_type_id=" . tosql($fldcard_type_id, "Number") .
-          ",card_number=" . tosql($fldcard_number, "Text");
+          ",notes=" . tosql($fldnotes, "Text");
         $sSQL .= " where " . $sWhere;
     break;
     case "delete":
@@ -350,8 +337,7 @@ function Members_show()
   $fldphone = "";
   $fldaddress = "";
   $fldnotes = "";
-  $fldcard_type_id = "";
-  $fldcard_number = "";
+
 //-------------------------------
 // Members Show begin
 //-------------------------------
@@ -458,8 +444,7 @@ function Members_show()
       $fldphone = $db->f("phone");
       $fldaddress = $db->f("address");
       $fldnotes = $db->f("notes");
-      $fldcard_type_id = $db->f("card_type_id");
-      $fldcard_number = $db->f("card_number");
+
     }
 //-------------------------------
 // Members ShowEdit Event begin
@@ -585,40 +570,7 @@ function Members_show()
            <textarea class="form-control" name="notes" cols="50" rows="5"><?php echo tohtml($fldnotes); ?></textarea></span>
        </td>
      </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Credit Card Type</span>
-       </td>
-       <td>
-         <span style="font-size: 12pt; color: #000000"><select class="form-control" size="1" name="card_type_id">
-<?php
-    $lookup_card_type_id = db_fill_array("select card_type_id, name from card_types order by 2");
 
-    if(is_array($lookup_card_type_id))
-    {
-      reset($lookup_card_type_id);
-      while(list($key, $value) = each($lookup_card_type_id))
-      {
-        if($key == $fldcard_type_id)
-          $option="<option SELECTED value=\"$key\">$value";
-        else
-          $option="<option value=\"$key\">$value";
-        echo $option;
-      }
-    }
-
-?></select></span>
-       </td>
-     </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Credit Card Number</span>
-       </td>
-       <td>
-         <span style="font-size: 12pt; color: #000000">
-           <input class="form-control" type="text" name="card_number" maxlength="50" value="<?php echo tohtml($fldcard_number); ?>" size="50" ></span>
-       </td>
-     </tr>
     <tr><td colspan="2" align="right">
 <?php if (!$bIsUpdateMode) { ?>
    <input type="hidden" value="insert" name="FormAction">
@@ -638,10 +590,9 @@ function Members_show()
   </td></tr>
   </form>
   </table>
+
+
 <?php
-
-
-
 //-------------------------------
 // Members Close Event begin
 // Members Close Event end

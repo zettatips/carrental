@@ -1,5 +1,8 @@
 <?php
-//********************************************************************************
+/*********************************************************************************
+*       Filename: header.php
+*       PHP 5.3.29 build 10/12/2014
+*********************************************************************************/
 
 session_start();
 //===============================
@@ -23,8 +26,7 @@ function Header_show()
   $fldShop = "Reservation.php";
   $fldField1 = "Login.php";
   $fldAdmin = "AdminMenu.php";
-  $fldAbout = "About.php";
-  $fldContact= "Contact.php";
+  $fldCars = "Cars.php";
   //-------------------------------
   // Menu Show begin
   //-------------------------------
@@ -83,9 +85,8 @@ function Header_show()
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+          <li><a href="<?php echo $fldCars; ?>">Cars</a></li>
           <li><a href="<?php echo $fldShop; ?>">Reservation</a></li>
-          <li><a href="<?php echo $fldAbout; ?>">About Us</a></li>
-          <li><a href="<?php echo $fldContact; ?>">Contact Us</a></li>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

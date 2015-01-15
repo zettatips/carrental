@@ -1,8 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: Reservation.php
- *       PHP 4.0 build 11/30/2001
- *       PHP 5.0 build 15/12/2014
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -89,9 +88,15 @@ switch ($sForm) {
 <div class="col-md-6">
   <?php Member_show() ?>
   <br />
-  <?php Items_show() ?>
+  <?php
+  if(!$_SESSION['admin'])
+    Items_show();
+  ?>
   <br />
-  <?php Total_show() ?>
+  <?php
+  if(!$_SESSION['admin'])
+    Total_show();
+  ?>
   <br />
 </div>
 <div class="col-md-3"></div>

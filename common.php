@@ -2,8 +2,7 @@
 
 /*********************************************************************************
  *       Filename: common.php
- *       PHP 4.0 build 11/30/2001
- *       PHP 5.0 build 10/12/2014
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 error_reporting (E_ALL ^ E_NOTICE);
@@ -75,7 +74,6 @@ function get_param($param_name)
 
 function get_session($param_name)
 {
-
   $param_value = "";
 
   if(!isset($_POST[$param_name]) && !isset($_GET[$param_name]) && isset($_SESSION[$param_name]))
@@ -86,13 +84,10 @@ function get_session($param_name)
 
 function set_session($param_name, $param_value)
 {
-
   if(isset($_SESSION[$param_name]))
     unset($_SESSION[$param_name]);
 
   $_SESSION[$param_name] = $param_value;
-
-
 }
 
 function is_number($string_value)
@@ -224,7 +219,6 @@ function get_lov_value($value, $array)
 //-------------------------------
 // Verify user's security level and redirect to login page if needed
 //-------------------------------
-
 function check_security($security_level)
 {
   if(!isset($_SESSION['UserID']))

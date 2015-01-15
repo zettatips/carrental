@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: MyInfo.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -131,8 +131,6 @@ function Form_action($sAction)
   $fldaddress = "";
   $fldphone = "";
   $fldnotes = "";
-  $fldcard_type_id = "";
-  $fldcard_number = "";
 //-------------------------------
 
 //-------------------------------
@@ -178,9 +176,6 @@ function Form_action($sAction)
   $fldaddress = get_param("address");
   $fldphone = get_param("phone");
   $fldnotes = get_param("notes");
-  $fldcard_type_id = get_param("card_type_id");
-  $fldcard_number = get_param("card_number");
-
 //-------------------------------
 // Validate fields
 //-------------------------------
@@ -198,8 +193,6 @@ function Form_action($sAction)
     if(!strlen($fldemail))
       $sFormErr .= "The value in field Email* is required.<br>";
 
-    if(!is_number($fldcard_type_id))
-      $sFormErr .= "The value in field Credit Card Type is incorrect.<br>";
 
 //-------------------------------
 // Form Check Event begin
@@ -228,9 +221,7 @@ function Form_action($sAction)
           ",email=" . tosql($fldemail, "Text") .
           ",address=" . tosql($fldaddress, "Text") .
           ",phone=" . tosql($fldphone, "Text") .
-          ",notes=" . tosql($fldnotes, "Text") .
-          ",card_type_id=" . tosql($fldcard_type_id, "Number") .
-          ",card_number=" . tosql($fldcard_number, "Text");
+          ",notes=" . tosql($fldnotes, "Text");
         $sSQL .= " where " . $sWhere;
     break;
   }
@@ -275,8 +266,7 @@ function Form_show()
   $fldaddress = "";
   $fldphone = "";
   $fldnotes = "";
-  $fldcard_type_id = "";
-  $fldcard_number = "";
+
 //-------------------------------
 // Form Show begin
 //-------------------------------
@@ -321,8 +311,6 @@ function Form_show()
     $fldaddress = strip(get_param("address"));
     $fldphone = strip(get_param("phone"));
     $fldnotes = strip(get_param("notes"));
-    $fldcard_type_id = strip(get_param("card_type_id"));
-    $fldcard_number = strip(get_param("card_number"));
   }
 //-------------------------------
 
@@ -373,8 +361,6 @@ function Form_show()
       $fldaddress = $db->f("address");
       $fldphone = $db->f("phone");
       $fldnotes = $db->f("notes");
-      $fldcard_type_id = $db->f("card_type_id");
-      $fldcard_number = $db->f("card_number");
     }
 //-------------------------------
 // Form ShowEdit Event begin
@@ -473,41 +459,7 @@ function Form_show()
            <textarea class="form-control" name="notes" cols="50" rows="5"><?php echo tohtml($fldnotes); ?></textarea></span>
        </td>
      </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Credit Card Type</span>
-       </td>
-       <td>
-         <span style="font-size: 12pt; color: #000000"><select class="form-control" size="1" name="card_type_id">
-<?php
-    echo "<option value=\"\">" . $scard_type_idDisplayValue . "</option>";
-    $lookup_card_type_id = db_fill_array("select card_type_id, name from card_types order by 2");
 
-    if(is_array($lookup_card_type_id))
-    {
-      reset($lookup_card_type_id);
-      while(list($key, $value) = each($lookup_card_type_id))
-      {
-        if($key == $fldcard_type_id)
-          $option="<option SELECTED value=\"$key\">$value";
-        else
-          $option="<option value=\"$key\">$value";
-        echo $option;
-      }
-    }
-
-?></select></span>
-       </td>
-     </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Credit Card Number</span>
-       </td>
-       <td>
-         <span style="font-size: 12pt; color: #000000">
-           <input class="form-control" type="text" name="card_number" maxlength="50" value="<?php echo tohtml($fldcard_number); ?>" size="50" ></span>
-       </td>
-     </tr>
     <tr><td colspan="2" align="right">
 
 <?php if ($bIsUpdateMode) { ?>
@@ -522,10 +474,8 @@ function Form_show()
   </td></tr>
   </form>
   </table>
+
 <?php
-
-
-
 //-------------------------------
 // Form Close Event begin
 // Form Close Event end

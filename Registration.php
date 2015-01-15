@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: Registration.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -244,9 +244,7 @@ if (get_param("member_password") != get_param("member_password2"))
           "last_name," .
           "email," .
           "address," .
-          "phone," .
-          "card_type_id," .
-          "card_number)" .
+          "phone)" .
           " values (" .
           tosql($fldmember_login, "Text") . "," .
           tosql($fldmember_password, "Text") . "," .
@@ -254,9 +252,7 @@ if (get_param("member_password") != get_param("member_password2"))
           tosql($fldlast_name, "Text") . "," .
           tosql($fldemail, "Text") . "," .
           tosql($fldaddress, "Text") . "," .
-          tosql($fldphone, "Text") . "," .
-          tosql($fldcard_type_id, "Number") . "," .
-          tosql($fldcard_number, "Text") .
+          tosql($fldphone, "Text") .
           ")";
     break;
     case "update":
@@ -272,9 +268,7 @@ if (get_param("member_password") != get_param("member_password2"))
           ",last_name=" . tosql($fldlast_name, "Text") .
           ",email=" . tosql($fldemail, "Text") .
           ",address=" . tosql($fldaddress, "Text") .
-          ",phone=" . tosql($fldphone, "Text") .
-          ",card_type_id=" . tosql($fldcard_type_id, "Number") .
-          ",card_number=" . tosql($fldcard_number, "Text");
+          ",phone=" . tosql($fldphone, "Text");
         $sSQL .= " where " . $sWhere;
     break;
   }
@@ -367,8 +361,6 @@ function Reg_show()
     $fldemail = strip(get_param("email"));
     $fldaddress = strip(get_param("address"));
     $fldphone = strip(get_param("phone"));
-    $fldcard_type_id = strip(get_param("card_type_id"));
-    $fldcard_number = strip(get_param("card_number"));
   }
 //-------------------------------
 
@@ -420,8 +412,6 @@ function Reg_show()
       $fldemail = $db->f("email");
       $fldaddress = $db->f("address");
       $fldphone = $db->f("phone");
-      $fldcard_type_id = $db->f("card_type_id");
-      $fldcard_number = $db->f("card_number");
     }
 //-------------------------------
 // Reg ShowEdit Event begin
@@ -525,40 +515,6 @@ function Reg_show()
         </div>
       </div>
 
-      <div class="control-group">
-      <!-- Credit Card Type -->
-      <label class="control-label"  for="CreditCard">Credit Card Type</label>
-        <div class="controls">
-          <select class="form-control" name="card_type_id">
-            <?php
-            $lookup_card_type_id = db_fill_array("select card_type_id, name from card_types order by 2");
-
-            if(is_array($lookup_card_type_id))
-            {
-              reset($lookup_card_type_id);
-              while(list($key, $value) = each($lookup_card_type_id))
-              {
-                if($key == $fldcard_type_id)
-                $option="<option SELECTED value=\"$key\">$value</option>";
-                else
-                $option="<option value=\"$key\">$value</option>";
-                echo $option;
-              }
-            }
-            ?>
-          </select>
-          <p class="help-block">Please select one Credit Card Type</p>
-        </div>
-      </div>
-
-      <div class="control-group">
-        <!-- Credit Card Number -->
-        <label class="control-label"  for="CreditCardNumber">Credit Card Number</label>
-        <div class="controls">
-          <input type="text" class="form-control" id="Phone" name="card_number" value="<?php echo tohtml($fldcard_number); ?>" placeholder="" class="input-xlarge">
-          <p class="help-block">Credit Card Number can contain only numbers, without spaces</p>
-        </div>
-      </div>
 
       <?php if (!$bIsUpdateMode) { ?>
         <input type="hidden" value="insert" name="FormAction">
