@@ -79,6 +79,11 @@ function Specials_show()
 //-------------------------------
 
   $sFormTitle = "Special Bulletin";
+  $fldarticle_title = "UNITEN E-Car Rental Services";
+  $fldarticle_desc = "UNITEN E-Car Rental service is easier and convenient for
+   people who needs travelling services for land based trips, airport services,
+   birthdays, weddings, debut, motorcades and other ocassion. Covers Klang
+   Valley and out of town trips";
 
 //-------------------------------
 // HTML column headers
@@ -87,17 +92,16 @@ function Specials_show()
      <table class="table" style="width:100%">
        <thead>
         <tr style="background-color: #336699; border-style: outset; border-width: 1">
-         <td style="text-align: Center;" colspan="1">
-           <a name="Specials"><span style="font-size: 12pt; color: #FFFFFF; font-weight: bold"><?php echo $sFormTitle; ?></span></a></td>
+         <th style="text-align: Center;" colspan="1">
+           <a name="Specials"><span style="font-size: 12pt; color: #FFFFFF; font-weight: bold"><?php echo $sFormTitle; ?></span></a></th>
         </tr>
       </thead>
       <tr>
-       <td style="background-color: #FFFFFF; border-style: inset; border-width: 0">
-         <span style="font-size: 12pt; color: #CE7E00; font-weight: bold"></span></td>
+       <td></td>
       </tr>
       <tr>
        <td style="background-color: #FFFFFF; border-width: 0">
-         <span style="font-size: 12pt; color: #000000">
+         <span style="font-size: 14pt; color: #CE7E00; font-weight: bold">
       <?php echo $fldarticle_title; ?>&nbsp;</span></td>
       </tr>
       <tr>
