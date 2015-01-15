@@ -28,13 +28,10 @@ function About_main()
                 <td>
                     <br />
                     <p align="center">UNITEN
-                      E-Car Rental is located virtually at Universiti Tenaga Nasional,</span></p>
-                    <p align="center"> is a service type of business
-                      that lends automobiles and offers travelling services</p>
-                    <p align="center">for airport trips out of town trips and other occasional
-                      purposes.</p>
-                    <p align="center">It
-                      is a sole proprietorship, which is running since year 2014.</p>
+                      E-Car Rental is located virtually at Universiti Tenaga Nasional, 
+is a service type of business that lends automobiles and offers travelling services for 
+airport trips out of town trips and other occasional purposes. It is a sole proprietorship, 
+which is running since year 2014.</p>
                 </td>
               </tr>
             </table>
