@@ -20,9 +20,6 @@ function Footer_show()
 // Set URLs
 //-------------------------------
   $fldField1 = "index.php";
-  $fldField6 = "About.php";
-  $fldField7 = "Contact.php";
-
 //-------------------------------
 // Footer Show begin
 //-------------------------------
@@ -85,15 +82,15 @@ function Footer_show()
   <div class="container">
     <div class="footer-size">
       <div class="footer-inner">
-        <a target="_blank" href="#">Terms & Conditions</a>
+        <a target="_self" href="#">Terms & Conditions</a>
         |
-        <a target="_blank" href="#">Privacy</a>
+        <a target="_self" href="<?php echo $fldField1; ?>">Privacy</a>
         |
-        <a target="_blank" href="#">Security</a>
+        <a target="_self" href="<?php echo $fldField1; ?>">Security</a>
         |
-        <a target="_blank" href="<?php echo $fldField6; ?>">About Us</a>
+        <a target="_self" href="<?php echo $fldField1; ?>">About Us</a>
         |
-        <a target="_blank" href="<?php echo $fldField7; ?>">Contact Us</a>
+        <a target="_self" href="<?php echo $fldField1; ?>">Contact Us</a>
       </div>
       <div class="footer-tools">
           Copyright &#169; 2014 UNITEN E-Car Rental
