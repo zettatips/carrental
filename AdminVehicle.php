@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: AdminVehicle.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -69,8 +69,6 @@ $sForm = get_param("FormName");
 
 <div class="col-md-3"></div>
 <div class="col-md-6">
-  <?php Search_show() ?>
-<br />
   <?php Items_show() ?>
 <br />
 </div>
@@ -89,102 +87,6 @@ $sForm = get_param("FormName");
 // AdminVehicle Close Event end
 //===============================
 //********************************************************************************
-
-
-//===============================
-// Display Search Form
-//-------------------------------
-function Search_show()
-{
-  global $db;
-  global $styles;
-
-  global $sForm;
-  $sFormTitle = "";
-  $sActionFileName = "AdminVehicle.php";
-  $scategory_idDisplayValue = "All";
-
-//-------------------------------
-// Search Open Event begin
-// Search Open Event end
-//-------------------------------
-//-------------------------------
-// Set variables with search parameters
-//-------------------------------
-  $fldcategory_id = strip(get_param("category_id"));
-  $fldis_recommended = strip(get_param("is_recommended"));
-
-//-------------------------------
-// Search Show begin
-//-------------------------------
-
-
-//-------------------------------
-// Search Show Event begin
-// Search Show Event end
-//-------------------------------
-?>
-    <form method="GET" action="<?php echo $sActionFileName; ?>" name="Search">
-    <input type="hidden" name="FormName" value="Search"><input type="hidden" name="FormAction" value="search">
-    <table style="width:100%">
-     <tr>
-      <td style="border-width: 0"><span style="font-size: 12pt; color: #000000">Category</span></td>
-      <td style="background-color: #FFFFFF; border-width: 1"><select class="form-control" name="category_id">
-<?php
-    echo "<option value=\"\">" . $scategory_idDisplayValue . "</option>";
-    $lookup_category_id = db_fill_array("select category_id, name from categories order by 2");
-
-    if(is_array($lookup_category_id))
-    {
-      reset($lookup_category_id);
-      while(list($key, $value) = each($lookup_category_id))
-      {
-        if($key == $fldcategory_id)
-          $option="<option SELECTED value=\"$key\">$value";
-        else
-          $option="<option value=\"$key\">$value";
-        echo $option;
-      }
-    }
-
-?></select></td>
-      <td style="border-width: 0"><span style="font-size: 12pt; color: #000000">Recommended</span></td>
-      <td style="background-color: #FFFFFF; border-width: 1"><select class="form-control" name="is_recommended">
-<?php
-    $LOV = split(";", ";All;0;No;1;Yes");
-
-    if(sizeof($LOV)%2 != 0)
-      $array_length = sizeof($LOV) - 1;
-    else
-      $array_length = sizeof($LOV);
-
-    for($i = 0; $i < $array_length; $i = $i + 2)
-    {
-      if($LOV[$i] == $fldis_recommended)
-        $option="<option SELECTED value=\"" . $LOV[$i] . "\">" . $LOV[$i + 1];
-      else
-        $option="<option value=\"" . $LOV[$i] . "\">" . $LOV[$i + 1];
-
-      echo $option;
-    }
-?></select></td>
-     <td ><button class="btn btn-primary" type="submit" value="Search">Search</td>
-    </tr>
-   </table>
-   </form>
-<?php
-
-//-------------------------------
-// Search Show end
-//-------------------------------
-
-//-------------------------------
-// Search Close Event begin
-// Search Close Event end
-//-------------------------------
-//===============================
-}
-
 
 //===============================
 // Display Grid Form

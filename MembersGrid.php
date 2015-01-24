@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: MembersGrid.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -70,9 +70,6 @@ $sForm = get_param("FormName");
 
 <div class="col-md-4"></div>
 <div class="col-md-4">
-  <span style="face: arial; font-size: 12pt "  > Enter full or partial login, first or last name</span>
-    <?php Search_show() ?>
-  <br />
     <?php Members_show() ?>
   <br />
 </div>
@@ -91,63 +88,6 @@ $sForm = get_param("FormName");
 // MembersGrid Close Event end
 //===============================
 //********************************************************************************
-
-
-//===============================
-// Display Search Form
-//-------------------------------
-function Search_show()
-{
-  global $db;
-  global $styles;
-
-  global $sForm;
-  $sFormTitle = "";
-  $sActionFileName = "MembersGrid.php";
-
-//-------------------------------
-// Search Open Event begin
-// Search Open Event end
-//-------------------------------
-//-------------------------------
-// Set variables with search parameters
-//-------------------------------
-  $fldname = strip(get_param("name"));
-
-//-------------------------------
-// Search Show begin
-//-------------------------------
-
-
-//-------------------------------
-// Search Show Event begin
-// Search Show Event end
-//-------------------------------
-?>
-    <form method="GET" action="<?php echo $sActionFileName; ?>" name="Search">
-    <input type="hidden" name="FormName" value="Search"><input type="hidden" name="FormAction" value="search">
-    <table style="width:100%">
-     <tr>
-      <td style="border-style: inset; border-width: 0"><span style="font-size: 12pt; color: #000000">Username :</span></td>
-      <td style="background-color: #FFFFFF; border-width: 1">
-        <input class="form-control" type="text" name="name" maxlength="10" value="<?php echo tohtml($fldname); ?>" size="10" ></td>
-     <td ><button class="btn btn-primary" type="submit" value="Search">Search</td>
-    </tr>
-   </table>
-   </form>
-<?php
-
-//-------------------------------
-// Search Show end
-//-------------------------------
-
-//-------------------------------
-// Search Close Event begin
-// Search Close Event end
-//-------------------------------
-//===============================
-}
-
 
 //===============================
 // Display Grid Form

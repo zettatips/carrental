@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: OrdersGrid.php
- *       PHP 4.0 build 11/30/2001
+ *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
@@ -68,8 +68,6 @@ $sForm = get_param("FormName");
 <?php Header_show() ?>
 <div class="col-md-4"></div>
 <div class="col-md-4">
-  <?php Search_show() ?>
-  <br />
   <?php Orders_show() ?>
   <br />
 </div>
@@ -88,103 +86,6 @@ $sForm = get_param("FormName");
 // OrdersGrid Close Event end
 //===============================
 //********************************************************************************
-
-
-//===============================
-// Display Search Form
-//-------------------------------
-function Search_show()
-{
-  global $db;
-  global $styles;
-
-  global $sForm;
-  $sFormTitle = "";
-  $sActionFileName = "OrdersGrid.php";
-  $sitem_idDisplayValue = "All";
-  $smember_idDisplayValue = "All";
-
-//-------------------------------
-// Search Open Event begin
-// Search Open Event end
-//-------------------------------
-//-------------------------------
-// Set variables with search parameters
-//-------------------------------
-  $flditem_id = strip(get_param("item_id"));
-  $fldmember_id = strip(get_param("member_id"));
-
-//-------------------------------
-// Search Show begin
-//-------------------------------
-
-
-//-------------------------------
-// Search Show Event begin
-// Search Show Event end
-//-------------------------------
-?>
-    <form method="GET" action="<?php echo $sActionFileName; ?>" name="Search">
-    <input type="hidden" name="FormName" value="Search"><input type="hidden" name="FormAction" value="search">
-    <table style="width:100%">
-     <tr>
-      <td style="border-width: 0"><span style="font-size: 12pt; color: #000000">Item</span></td>
-      <td style="background-color: #FFFFFF; border-width: 1"><select class="form-control" size="1" name="item_id">
-<?php
-    echo "<option value=\"\">" . $sitem_idDisplayValue . "</option>";
-    $lookup_item_id = db_fill_array("select item_id, name from items order by 2");
-
-    if(is_array($lookup_item_id))
-    {
-      reset($lookup_item_id);
-      while(list($key, $value) = each($lookup_item_id))
-      {
-        if($key == $flditem_id)
-          $option="<option SELECTED value=\"$key\">$value";
-        else
-          $option="<option value=\"$key\">$value";
-        echo $option;
-      }
-    }
-
-?></select></td>
-      <td style="border-width: 0"><span style="font-size: 12pt; color: #000000">Member</span></td>
-      <td style="background-color: #FFFFFF; border-width: 1"><select class="form-control" size="1" name="member_id">
-<?php
-    echo "<option value=\"\">" . $smember_idDisplayValue . "</option>";
-    $lookup_member_id = db_fill_array("select member_id, member_login from members order by 2");
-
-    if(is_array($lookup_member_id))
-    {
-      reset($lookup_member_id);
-      while(list($key, $value) = each($lookup_member_id))
-      {
-        if($key == $fldmember_id)
-          $option="<option SELECTED value=\"$key\">$value";
-        else
-          $option="<option value=\"$key\">$value";
-        echo $option;
-      }
-    }
-
-?></select></td>
-     <td ><button class="btn btn-primary" type="submit" value="Search">Search</td>
-    </tr>
-   </table>
-   </form>
-<?php
-
-//-------------------------------
-// Search Show end
-//-------------------------------
-
-//-------------------------------
-// Search Close Event begin
-// Search Close Event end
-//-------------------------------
-//===============================
-}
-
 
 //===============================
 // Display Grid Form
