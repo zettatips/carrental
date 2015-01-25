@@ -111,10 +111,9 @@ function Reg_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sRegErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -298,12 +297,10 @@ if (get_param("member_password") != get_param("member_password2"))
 function Reg_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sRegErr;
-  global $styles;
 
   $fldmember_id = "";
   $fldmember_login = "";

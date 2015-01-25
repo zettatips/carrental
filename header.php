@@ -10,8 +10,6 @@ session_start();
 //-------------------------------
 function Header_show()
 {
-  global $db;
-  global $styles;
   $sFormTitle = "";
 
   //-------------------------------
@@ -86,8 +84,14 @@ function Header_show()
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="<?php echo $fldCars; ?>">Cars</a></li>
-          <li><a href="<?php echo $fldShop; ?>">Reservation</a></li>
-          </li>
+          <?php
+            if(get_session("UserRights") > 1)
+            {
+              echo "";
+            }
+            else
+              echo "<li><a href=\"$fldShop\">Reservation</a></li>";
+          ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <?php

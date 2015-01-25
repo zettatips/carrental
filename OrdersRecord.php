@@ -118,7 +118,7 @@ function Orders_action($sAction)
 
   global $sForm;
   global $sOrdersErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sParams = "?";
@@ -273,7 +273,6 @@ function Orders_show()
   global $sForm;
   global $sFileName;
   global $sOrdersErr;
-  global $styles;
 
   $fldorder_id = "";
   $fldmember_id = "";

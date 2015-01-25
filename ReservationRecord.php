@@ -124,10 +124,9 @@ function ReservationRecord_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sReservationRecordErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -248,12 +247,10 @@ function ReservationRecord_action($sAction)
 function ReservationRecord_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sReservationRecordErr;
-  global $styles;
 
   $fldorder_id = "";
   $fldmember_id = "";

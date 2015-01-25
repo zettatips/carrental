@@ -85,7 +85,6 @@ $sForm = get_param("FormName");
 function Form_show()
 {
   global $db;
-  global $styles;
   $sFormTitle = "Administration Menu";
 
 //-------------------------------

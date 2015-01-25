@@ -62,7 +62,6 @@ function Recommended_show()
   global $db;
   global $sRecommendedErr;
   global $sFileName;
-  global $styles;
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

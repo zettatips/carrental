@@ -191,10 +191,9 @@ function Detail_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sDetailErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sParams = "?";
@@ -236,12 +235,10 @@ function Detail_action($sAction)
 function Detail_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sDetailErr;
-  global $styles;
 
   $flditem_id = "";
   $fldname = "";
@@ -457,10 +454,9 @@ function Order_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sOrderErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -635,12 +631,11 @@ function Order_action($sAction)
 function Order_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sOrderErr;
-  global $styles;
+
 
   $fldorder_id = "";
   $flditem_id = "";
@@ -1064,7 +1059,7 @@ function Order_show()
 function TermsCondition_show()
 {
   global $db;
-  global $styles;
+
   $sFormTitle = "";
 
 //-------------------------------

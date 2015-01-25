@@ -102,7 +102,6 @@ function Categories_show()
   global $db;
   global $sCategoriesErr;
   global $sFileName;
-  global $styles;
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

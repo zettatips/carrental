@@ -115,7 +115,6 @@ function Login_action($sAction)
 
   global $sLoginErr;
   global $sFileName;
-  global $styles;
 
   switch(strtolower($sAction))
   {
@@ -140,15 +139,17 @@ function Login_action($sAction)
 //-------------------------------
         set_session("UserID", $db->f("member_id"));
         set_session("UserRights", $db->f("member_level"));
-        //$_SESSION['UserID'] = $db->f("member_id");
-        //$_SESSION['UserRights'] = $db->f("member_level");
+
         $sPage = get_param("ret_page");
         if (strlen($sPage))
         {
           header("Location: " . $sPage);
         }
         else
-          header("Location: Reservation.php");
+          if(get_session("UserRights") > 1)
+            header("Location: AdminMenu.php");
+          else
+            header("Location: Reservation.php");
       }
       else
       {
@@ -172,7 +173,6 @@ function Login_show()
   global $sLoginErr;
   global $db;
   global $sFileName;
-  global $styles;
   $querystring =  get_param("querystring");
   $ret_page = get_param("ret_page");
 
@@ -213,7 +213,6 @@ function Login_show()
 <?php
 
   if(get_session("UserID") == "")
-  //if($_SESSION['UserID'] == "")
   {
 //-------------------------------
 //- User is not logged in

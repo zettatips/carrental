@@ -118,7 +118,6 @@ function Form_action($sAction)
 
   global $sForm;
   global $sFormErr;
-  global $styles;
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -255,7 +254,6 @@ function Form_show()
   global $sForm;
   global $sFileName;
   global $sFormErr;
-  global $styles;
 
   $fldmember_id = "";
   $fldmember_login = "";

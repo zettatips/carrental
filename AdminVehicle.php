@@ -101,7 +101,6 @@ function Items_show()
   global $db;
   global $sItemsErr;
   global $sFileName;
-  global $styles;
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

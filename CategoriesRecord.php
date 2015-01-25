@@ -118,7 +118,6 @@ function Categories_action($sAction)
 
   global $sForm;
   global $sCategoriesErr;
-  global $styles;
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -245,7 +244,6 @@ function Categories_show()
   global $sForm;
   global $sFileName;
   global $sCategoriesErr;
-  global $styles;
 
   $fldcategory_id = "";
   $fldname = "";

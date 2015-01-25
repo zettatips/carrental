@@ -100,7 +100,7 @@ function Orders_show()
   global $db;
   global $sOrdersErr;
   global $sFileName;
-  global $styles;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

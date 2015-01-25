@@ -105,11 +105,10 @@ function Results_show()
 // Initialize variables
 //-------------------------------
 
-
   global $db;
   global $sResultsErr;
   global $sFileName;
-  global $styles;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";
@@ -495,9 +494,8 @@ $fldname = "<img src=\"" . $fldimage_url . "\"></td><td valign=\"top\" width=\"1
 function Search_show()
 {
   global $db;
-  global $styles;
-
   global $sForm;
+
   $sFormTitle = "";
   $sActionFileName = "Vehicle.php";
   $scategory_idDisplayValue = "All";
@@ -579,7 +577,7 @@ function Search_show()
 function AdvMenu_show()
 {
   global $db;
-  global $styles;
+
   $sFormTitle = "";
 
 //-------------------------------
@@ -630,11 +628,10 @@ function Total_show()
 // Initialize variables
 //-------------------------------
 
-
   global $db;
   global $sTotalErr;
   global $sFileName;
-  global $styles;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

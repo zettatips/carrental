@@ -122,7 +122,6 @@ function Record_action($sAction)
 
   global $sForm;
   global $sRecordErr;
-  global $styles;
   $bExecSQL = true;
   $sActionFileName = "";
   $sWhere = "";
@@ -167,7 +166,6 @@ function Record_show()
   global $sForm;
   global $sFileName;
   global $sRecordErr;
-  global $styles;
 
   $fldmember_id = "";
   $fldmember_login = "";
@@ -391,7 +389,6 @@ function Orders_show()
   global $db;
   global $sOrdersErr;
   global $sFileName;
-  global $styles;
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";

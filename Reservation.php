@@ -88,15 +88,9 @@ switch ($sForm) {
 <div class="col-md-6">
   <?php Member_show() ?>
   <br />
-  <?php
-  if(!$_SESSION['admin'])
-    Items_show();
-  ?>
+  <?php Items_show(); ?>
   <br />
-  <?php
-  if(!$_SESSION['admin'])
-    Total_show();
-  ?>
+  <?php Total_show(); ?>
   <br />
 </div>
 <div class="col-md-3"></div>
@@ -126,11 +120,10 @@ function Items_show()
 // Initialize variables
 //-------------------------------
 
-
   global $db;
   global $sItemsErr;
   global $sFileName;
-  global $styles;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";
@@ -300,7 +293,7 @@ function Items_show()
          <a href="<?php echo $fldField1_URLLink; ?>?order_id=<?php echo $fldField1_order_id; ?>&<?php echo  $transit_params; ?>">
            <span class="btn btn-info"><?php echo $fldField1; ?></span></a>&nbsp;</span></td>
        <td><span style="font-size: 12pt; color: #000000">
-         <?php echo  tohtml($fldorder_id); ?>&nbsp;</span></td>
+         <?php echo tohtml($fldorder_id); ?>&nbsp;</span></td>
        <td><span style="font-size: 12pt; color: #000000">
          <?php echo tohtml($flditem_id); ?>&nbsp;</span></td>
        <td><span style="font-size: 12pt; color: #000000">
@@ -349,11 +342,10 @@ function Total_show()
 // Initialize variables
 //-------------------------------
 
-
   global $db;
   global $sTotalErr;
   global $sFileName;
-  global $styles;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";
@@ -495,7 +487,7 @@ function Total_show()
 ?>
       <tr>
        <td><span style="font-size: 12pt; color: #000000">
-      <?php echo tohtml($fldsub_total) ?>&nbsp;</span></td>
+      <?php echo tohtml($fldsub_total); ?>&nbsp;</span></td>
     </tr>
     <?php
 //-------------------------------
@@ -536,10 +528,9 @@ function Member_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sMemberErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sParams = "?";
@@ -584,12 +575,10 @@ function Member_action($sAction)
 function Member_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sMemberErr;
-  global $styles;
 
   $fldmember_id = "";
   $fldmember_login = "";
@@ -646,7 +635,7 @@ function Member_show()
 //-------------------------------
 
   $pmember_id = get_session("UserID");
-  //$pmember_id = $_SESSION['UserID'];
+
   if( !strlen($pmember_id))
     $bPK = false;
 
@@ -689,7 +678,6 @@ function Member_show()
     if($sMemberErr == "")
     {
       $fldmember_id = tohtml(get_session("UserID"));
-      //$fldmember_id = tohtml($_SESSION['UserID']);
     }
 //-------------------------------
 // Member ShowInsert Event begin
