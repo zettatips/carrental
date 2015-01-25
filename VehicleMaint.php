@@ -121,10 +121,9 @@ function Vehicle_action($sAction)
 // Initialize variables
 //-------------------------------
   global $db;
-
   global $sForm;
   global $sVehicleErr;
-  global $styles;
+
   $bExecSQL = true;
   $sActionFileName = "";
   $sParams = "?";
@@ -295,12 +294,10 @@ function Vehicle_action($sAction)
 function Vehicle_show()
 {
   global $db;
-
   global $sAction;
   global $sForm;
   global $sFileName;
   global $sVehicleErr;
-  global $styles;
 
   $flditem_id = "";
   $fldname = "";

@@ -126,7 +126,6 @@ function Members_action($sAction)
 
   global $sForm;
   global $sMembersErr;
-  global $styles;
   $bExecSQL = true;
   $sActionFileName = "";
   $sParams = "?";
@@ -325,7 +324,6 @@ function Members_show()
   global $sForm;
   global $sFileName;
   global $sMembersErr;
-  global $styles;
 
   $fldmember_id = "";
   $fldmember_login = "";
