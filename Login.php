@@ -145,10 +145,11 @@ function Login_action($sAction)
         {
           header("Location: " . $sPage);
         }
-        else
-          if(get_session("UserRights") > 1)
+        else if(get_session("UserRights") == 3)
             header("Location: AdminMenu.php");
-          else
+        else if(get_session("UserRights") == 2)
+            header("Location: CompAdminMenu.php");
+        else
             header("Location: Reservation.php");
       }
       else

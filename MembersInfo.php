@@ -89,8 +89,7 @@ switch ($sForm) {
 <div class="col-md-4">
   <?php  Record_show() ?>
   <?php
-    if(!$_SESSION['admin'])
-    Orders_show();
+      Orders_show();
   ?>
 </div>
 <div class="col-md-4"></div>
@@ -389,6 +388,7 @@ function Orders_show()
   global $db;
   global $sOrdersErr;
   global $sFileName;
+
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";
@@ -506,7 +506,6 @@ function Orders_show()
 //-------------------------------
 
 
-
 //-------------------------------
 // Process if form has all required parameters
 //-------------------------------
@@ -591,7 +590,9 @@ function Orders_show()
       <?php echo tohtml($flditem_id); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
       <?php echo tohtml($fldquantity); ?>&nbsp;</span></td>
-      </tr><?php
+      </tr>
+
+<?php
 //-------------------------------
 // Orders Show end
 //-------------------------------
@@ -599,20 +600,15 @@ function Orders_show()
 //-------------------------------
 // Move to the next record and increase record counter
 //-------------------------------
-
     $iCounter++;
   }
-
-
-
 //-------------------------------
 // Finish form processing
 //-------------------------------
-  ?>
+?>
     </table>
-  <?php
 
-
+<?php
 //-------------------------------
 // Orders Close Event begin
 // Orders Close Event end

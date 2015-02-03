@@ -1,17 +1,17 @@
 <?php
 /*********************************************************************************
- *       Filename: AdminVehicle.php
- *       PHP 5.3.29 build 10/12/2014
+ *       Filename: CompAdminVehicle.php
+ *       PHP 5.3.29 build 3/2/2015
  *********************************************************************************/
 
 //-------------------------------
-// AdminVehicle CustomIncludes begin
+// CompAdminVehicle CustomIncludes begin
 
 include ("./common.php");
 include ("./Header.php");
 include ("./Footer.php");
 
-// AdminVehicle CustomIncludes end
+// CompAdminVehicle CustomIncludes end
 //-------------------------------
 
 session_start();
@@ -19,24 +19,24 @@ session_start();
 //===============================
 // Save Page and File Name available into variables
 //-------------------------------
-$sFileName = "AdminVehicle.php";
+$sFileName = "CompAdminVehicle.php";
 //===============================
 
 
 //===============================
-// AdminVehicle PageSecurity begin
-check_security(3);
-// AdminVehicle PageSecurity end
+// CompAdminVehicle PageSecurity begin
+check_security(2);
+// CompAdminVehicle PageSecurity end
 //===============================
 
 //===============================
-// AdminVehicle Open Event begin
-// AdminVehicle Open Event end
+// CompAdminVehicle Open Event begin
+// CompAdminVehicle Open Event end
 //===============================
 
 //===============================
-// AdminVehicle OpenAnyPage Event start
-// AdminVehicle OpenAnyPage Event end
+// CompAdminVehicle OpenAnyPage Event start
+// CompAdminVehicle OpenAnyPage Event end
 //===============================
 
 //===============================
@@ -46,7 +46,7 @@ $sAction = get_param("FormAction");
 $sForm = get_param("FormName");
 //===============================
 
-// AdminVehicle Show begin
+// CompAdminVehicle Show begin
 
 //===============================
 // Display page
@@ -58,7 +58,7 @@ $sForm = get_param("FormName");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>E-Car Rental - Admin Vehicle</title>
+  <title>E-Car Rental - Company Admin Vehicle</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <script src="js/jquery-1.11.1.min.js"></script>
@@ -71,7 +71,7 @@ $sForm = get_param("FormName");
 <div class="col-md-6">
   <?php Items_show() ?>
 <br />
-
+<?php var_dump($_SESSION); ?>
 </div>
 <div class="col-md-3"></div>
 
@@ -81,11 +81,11 @@ $sForm = get_param("FormName");
 </html>
 <?php
 
-// AdminVehicle Show end
+// CompAdminVehicle Show end
 
 //===============================
-// AdminVehicle Close Event begin
-// AdminVehicle Close Event end
+// CompAdminVehicle Close Event begin
+// CompAdminVehicle Close Event end
 //===============================
 //********************************************************************************
 
@@ -113,10 +113,10 @@ function Items_show()
   $iSorted = "";
   $sDirection = "";
   $sSortParams = "";
-  $sActionFileName = "VehicleMaint.php";
+  $sActionFileName = "CompVehicleMaint.php";
 
-  $transit_params = "company_id=" . tourl(get_param("company_id")) . "&is_recommended=" . tourl(get_param("is_recommended")) . "&";
-  $form_params = "company_id=" . tourl(get_param("company_id")) . "&is_recommended=" . tourl(get_param("is_recommended")) . "&";
+  $transit_params = "company_id=" . tourl(get_param("company_id")) . "&";
+  $form_params = "company_id=" . tourl(get_param("company_id")) . "&";
 
 //-------------------------------
 // Build ORDER BY statement
@@ -145,7 +145,7 @@ function Items_show()
     if ($iSort == 2) $sOrder = " order by i.model" . $sDirection;
     if ($iSort == 3) $sOrder = " order by i.price" . $sDirection;
     if ($iSort == 4) $sOrder = " order by c.company_name" . $sDirection;
-    if ($iSort == 5) $sOrder = " order by i.is_recommended" . $sDirection;
+
   }
 
 //-------------------------------
@@ -173,9 +173,6 @@ function Items_show()
          <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
            <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormItems_Sorting=4&FormItems_Sorted=<?php echo $form_sorting; ?>&">
              <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Company</span></a></th>
-         <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormItems_Sorting=5&FormItems_Sorted=<?php echo $form_sorting; ?>&">
-             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Recommended</span></a></th>
         </tr>
       </thead>
 <?php
@@ -194,20 +191,6 @@ function Items_show()
     $HasParam = true;
     $sWhere = $sWhere . "i.company_id=" . $pcompany_id;
   }
-  $pis_recommended = get_param("is_recommended");
-  if(is_number($pis_recommended) && strlen($pis_recommended))
-    $pis_recommended = tosql($pis_recommended, "Number");
-  else
-    $pis_recommended = "";
-
-  if(strlen($pis_recommended))
-  {
-    if($sWhere != "")
-      $sWhere .= " and ";
-    $HasParam = true;
-    $sWhere = $sWhere . "i.is_recommended=" . $pis_recommended;
-  }
-
 
   if($HasParam)
     $sWhere = " AND (" . $sWhere . ")";
@@ -217,7 +200,6 @@ function Items_show()
 // Build base SQL statement
 //-------------------------------
   $sSQL = "select i.company_id as i_company_id, " .
-    "i.is_recommended as i_is_recommended, " .
     "i.item_id as i_item_id, " .
     "i.model as i_model, " .
     "i.name as i_name, " .
@@ -238,8 +220,6 @@ function Items_show()
 //-------------------------------
   $sSQL .= $sWhere . $sOrder;
 //-------------------------------
-
-
 
 //-------------------------------
 // Process the link to the record page
@@ -285,7 +265,6 @@ function Items_show()
 // Prepare the lists of values
 //-------------------------------
 
-  $ais_recommended = explode(";", "0;No;1;Yes");
 //-------------------------------
 //-------------------------------
 // Initialize page counter and records per page
@@ -320,10 +299,9 @@ function Items_show()
 //-------------------------------
 // Create field variables based on database fields
 //-------------------------------
-    $fldField1_URLLink = "VehicleMaint.php";
+    $fldField1_URLLink = "CompVehicleMaint.php";
     $fldField1_item_id = $db->f("i_item_id");
     $fldcompany_id = $db->f("c_name");
-    $fldis_recommended = $db->f("i_is_recommended");
     $fldmodel = $db->f("i_model");
     $fldname = $db->f("i_name");
     $fldprice = $db->f("i_price");
@@ -356,9 +334,6 @@ function Items_show()
       <?php echo tohtml($fldprice); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
       <?php echo tohtml($fldcompany_id); ?>&nbsp;</span></td>
-       <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-      <?php $fldis_recommended = get_lov_value($fldis_recommended, $ais_recommended); ?>
-      <?php echo tohtml($fldis_recommended); ?>&nbsp;</span></td>
       </tr><?php
 //-------------------------------
 // Items Show end

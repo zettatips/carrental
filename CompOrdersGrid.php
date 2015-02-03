@@ -1,17 +1,17 @@
 <?php
 /*********************************************************************************
- *       Filename: MembersGrid.php
+ *       Filename: OrdersGrid.php
  *       PHP 5.3.29 build 10/12/2014
  *********************************************************************************/
 
 //-------------------------------
-// MembersGrid CustomIncludes begin
+// OrdersGrid CustomIncludes begin
 
 include ("./common.php");
 include ("./Header.php");
 include ("./Footer.php");
 
-// MembersGrid CustomIncludes end
+// OrdersGrid CustomIncludes end
 //-------------------------------
 
 session_start();
@@ -19,24 +19,24 @@ session_start();
 //===============================
 // Save Page and File Name available into variables
 //-------------------------------
-$sFileName = "MembersGrid.php";
+$sFileName = "OrdersGrid.php";
 //===============================
 
 
 //===============================
-// MembersGrid PageSecurity begin
+// OrdersGrid PageSecurity begin
 check_security(2);
-// MembersGrid PageSecurity end
+// OrdersGrid PageSecurity end
 //===============================
 
 //===============================
-// MembersGrid Open Event begin
-// MembersGrid Open Event end
+// OrdersGrid Open Event begin
+// OrdersGrid Open Event end
 //===============================
 
 //===============================
-// MembersGrid OpenAnyPage Event start
-// MembersGrid OpenAnyPage Event end
+// OrdersGrid OpenAnyPage Event start
+// OrdersGrid OpenAnyPage Event end
 //===============================
 
 //===============================
@@ -46,7 +46,7 @@ $sAction = get_param("FormAction");
 $sForm = get_param("FormName");
 //===============================
 
-// MembersGrid Show begin
+// OrdersGrid Show begin
 
 //===============================
 // Display page
@@ -58,19 +58,17 @@ $sForm = get_param("FormName");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>E-Car Rental - Members</title>
+  <title>E-Car Rental - Reservation</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <script src="js/jquery-1.11.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <?php Header_show() ?>
-
 <div class="col-md-4"></div>
 <div class="col-md-4">
-    <?php Members_show() ?>
+  <?php Orders_show() ?>
   <br />
 </div>
 <div class="col-md-4"></div>
@@ -81,18 +79,18 @@ $sForm = get_param("FormName");
 </html>
 <?php
 
-// MembersGrid Show end
+// OrdersGrid Show end
 
 //===============================
-// MembersGrid Close Event begin
-// MembersGrid Close Event end
+// OrdersGrid Close Event begin
+// OrdersGrid Close Event end
 //===============================
 //********************************************************************************
 
 //===============================
 // Display Grid Form
 //-------------------------------
-function Members_show()
+function Orders_show()
 {
 //-------------------------------
 // Initialize variables
@@ -100,13 +98,13 @@ function Members_show()
 
 
   global $db;
-  global $sMembersErr;
+  global $sOrdersErr;
   global $sFileName;
 
   $sWhere = "";
   $sOrder = "";
   $sSQL = "";
-  $sFormTitle = "Members";
+  $sFormTitle = "Orders";
   $HasParam = false;
   $iRecordsPerPage = 20;
   $iCounter = 0;
@@ -116,17 +114,17 @@ function Members_show()
   $iSorted = "";
   $sDirection = "";
   $sSortParams = "";
-  $sActionFileName = "MembersRecord.php";
+  $sActionFileName = "CompOrdersRecord.php";
 
-  $transit_params = "name=" . tourl(get_param("name")) . "&";
-  $form_params = "name=" . tourl(get_param("name")) . "&";
+  $transit_params = "item_id=" . tourl(get_param("item_id")) . "&member_id=" . tourl(get_param("member_id")) . "&";
+  $form_params = "item_id=" . tourl(get_param("item_id")) . "&member_id=" . tourl(get_param("member_id")) . "&";
 
 //-------------------------------
 // Build ORDER BY statement
 //-------------------------------
-  $sOrder = " order by m.member_login Asc";
-  $iSort = get_param("FormMembers_Sorting");
-  $iSorted = get_param("FormMembers_Sorted");
+  $sOrder = " order by o.order_id Asc";
+  $iSort = get_param("FormOrders_Sorting");
+  $iSorted = get_param("FormOrders_Sorted");
   if(!$iSort)
   {
     $form_sorting = "";
@@ -137,76 +135,96 @@ function Members_show()
     {
       $form_sorting = "";
       $sDirection = " DESC";
-      $sSortParams = "FormMembers_Sorting=" . $iSort . "&FormMembers_Sorted=" . $iSort . "&";
+      $sSortParams = "FormOrders_Sorting=" . $iSort . "&FormOrders_Sorted=" . $iSort . "&";
     }
     else
     {
       $form_sorting = $iSort;
       $sDirection = " ASC";
-      $sSortParams = "FormMembers_Sorting=" . $iSort . "&FormMembers_Sorted=" . "&";
+      $sSortParams = "FormOrders_Sorting=" . $iSort . "&FormOrders_Sorted=" . "&";
     }
-    if ($iSort == 1) $sOrder = " order by m.member_login" . $sDirection;
-    if ($iSort == 2) $sOrder = " order by m.first_name" . $sDirection;
-    if ($iSort == 3) $sOrder = " order by m.last_name" . $sDirection;
-    if ($iSort == 4) $sOrder = " order by m.member_level" . $sDirection;
+    if ($iSort == 1) $sOrder = " order by i.name" . $sDirection;
+    if ($iSort == 2) $sOrder = " order by m.member_login" . $sDirection;
+    if ($iSort == 3) $sOrder = " order by o.quantity" . $sDirection;
   }
 
 //-------------------------------
 // HTML column headers
 //-------------------------------
 ?>
-     <table class="table table-bordered"  style="width:100%">
+     <table class="table table-bordered" style="width:100%">
       <thead>
-        <tr style="background-color: #336699;  border-style: outset; border-width: 1" >
-         <th style="text-align: Center; " colspan="4">
-           <a name="Members"><span style="font-size: 13pt; color: #FFFFFF; font-weight: bold"><?php echo $sFormTitle; ?></span></a></th>
-        </tr>
-        <tr>
-         <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormMembers_Sorting=1&FormMembers_Sorted=<?php echo $form_sorting; ?>&">
-             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Username</span></a></th>
-         <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormMembers_Sorting=2&FormMembers_Sorted=<?php echo $form_sorting; ?>&">
-             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">First Name</span></a></th>
-         <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormMembers_Sorting=3&FormMembers_Sorted=<?php echo $form_sorting; ?>&">
-             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Last Name</span></a></th>
-         <th style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormMembers_Sorting=4&FormMembers_Sorted=<?php echo $form_sorting; ?>&">
-             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Level</span></a></th>
+        <tr style="background-color: #336699; border-style: outset; border-width: 1">
+         <th style="text-align: Center" colspan="4"><a name="Orders">
+           <span style="font-size: 12pt; color: #FFFFFF; font-weight: bold"><?php echo $sFormTitle; ?></span></a></th>
         </tr>
       </thead>
+        <tr>
+         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1"><a >
+           <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Edit</span></a></td>
+         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1">
+           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormOrders_Sorting=1&FormOrders_Sorted=<?php echo $form_sorting; ?>&">
+             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Vehicle #</span></a></td>
+         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1">
+           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormOrders_Sorting=2&FormOrders_Sorted=<?php echo $form_sorting; ?>&">
+             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Member</span></a></td>
+         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1">
+           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormOrders_Sorting=3&FormOrders_Sorted=<?php echo $form_sorting; ?>&">
+             <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">No. of Hour(s)</span></a></td>
+        </tr>
 <?php
 
 //-------------------------------
 // Build WHERE statement
 //-------------------------------
-  $pname = get_param("name");
-  if(strlen($pname))
+  $pitem_id = get_param("item_id");
+  if(is_number($pitem_id) && strlen($pitem_id))
+    $pitem_id = tosql($pitem_id, "Number");
+  else
+    $pitem_id = "";
+
+  if(strlen($pitem_id))
   {
     $HasParam = true;
-    $sWhere = "m.member_login like " . tosql("%".$pname ."%", "Text") . " or " . "m.first_name like " . tosql("%".$pname ."%", "Text") . " or " . "m.last_name like " . tosql("%".$pname ."%", "Text");
+    $sWhere = $sWhere . "o.item_id=" . $pitem_id;
+  }
+  $pmember_id = get_param("member_id");
+  if(is_number($pmember_id) && strlen($pmember_id))
+    $pmember_id = tosql($pmember_id, "Number");
+  else
+    $pmember_id = "";
+
+  if(strlen($pmember_id))
+  {
+    if($sWhere != "")
+      $sWhere .= " and ";
+    $HasParam = true;
+    $sWhere = $sWhere . "o.member_id=" . $pmember_id;
   }
 
 
   if($HasParam)
-    $sWhere = " WHERE (" . $sWhere . ")";
+    $sWhere = " AND (" . $sWhere . ")";
 
 
 //-------------------------------
 // Build base SQL statement
 //-------------------------------
-  $sSQL = "select m.first_name as m_first_name, " .
-    "m.last_name as m_last_name, " .
+  $sSQL = "select o.item_id as o_item_id, " .
+    "o.member_id as o_member_id, " .
+    "o.order_id as o_order_id, " .
+    "o.quantity as o_quantity, " .
+    "i.item_id as i_item_id, " .
+    "i.name as i_name, " .
     "m.member_id as m_member_id, " .
-    "m.member_level as m_member_level, " .
     "m.member_login as m_member_login " .
-    " from members m ";
+    " from orders o, items i, members m " .
+    " where i.item_id=o.item_id and m.member_id=o.member_id  ";
 //-------------------------------
 
 //-------------------------------
-// Members Open Event begin
-// Members Open Event end
+// Orders Open Event begin
+// Orders Open Event end
 //-------------------------------
 
 //-------------------------------
@@ -214,6 +232,8 @@ function Members_show()
 //-------------------------------
   $sSQL .= $sWhere . $sOrder;
 //-------------------------------
+
+
 
 //-------------------------------
 // Process the link to the record page
@@ -243,9 +263,8 @@ function Members_show()
 ?>
     <tr>
      <td colspan="4" style="background-color: #FFFFFF; border-style: inset; border-width: 0">
-       <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">
-         <a href="<?php echo $form_action; ?>?<?php echo  $transit_params; ?>">
-           <span class="btn btn-success">Insert Members</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <span style="font-size: 12pt; color: #CE7E00; font-weight: bold"><a href="<?php echo $form_action; ?>?<?php echo $transit_params; ?>">
+         <span class="btn btn-success">Insert Reservation</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <?php
 ?>
   </table>
@@ -257,12 +276,6 @@ function Members_show()
 //-------------------------------
 
 //-------------------------------
-// Prepare the lists of values
-//-------------------------------
-
-  $amember_level = explode(";", "1;Member;2;Administrator");
-//-------------------------------
-//-------------------------------
 // Initialize page counter and records per page
 //-------------------------------
   $iRecordsPerPage = 20;
@@ -272,7 +285,7 @@ function Members_show()
 //-------------------------------
 // Process page scroller
 //-------------------------------
-  $iPage = get_param("FormMembers_Page");
+  $iPage = get_param("FormOrders_Page");
   if(!strlen($iPage)) $iPage = 1; else $iPage = intval($iPage);
 
   if(($iPage - 1) * $iRecordsPerPage != 0)
@@ -295,22 +308,24 @@ function Members_show()
 //-------------------------------
 // Create field variables based on database fields
 //-------------------------------
-    $fldname = $db->f("m_first_name");
-    $fldlast_name = $db->f("m_last_name");
-    $fldmember_level = $db->f("m_member_level");
-    $fldmember_login_URLLink = "MembersInfo.php";
-    $fldmember_login_member_id = $db->f("m_member_id");
-    $fldmember_login = $db->f("m_member_login");
+    $fldField1_URLLink = "CompOrdersRecord.php";
+    $fldField1_order_id = $db->f("o_order_id");
+    $flditem_id = $db->f("i_name");
+    $fldmember_id = $db->f("m_member_login");
+    $fldorder_id = $db->f("o_order_id");
+    $fldquantity = $db->f("o_quantity");
+    $fldField1= "Edit";
     $next_record = $db->next_record();
 
 //-------------------------------
-// Members Show begin
+// Orders Show begin
 //-------------------------------
 
 //-------------------------------
-// Members Show Event begin
-// Members Show Event end
+// Orders Show Event begin
+// Orders Show Event end
 //-------------------------------
+
 
 //-------------------------------
 // Process the HTML controls
@@ -318,25 +333,23 @@ function Members_show()
 ?>
       <tr>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-         <a href="<?php echo $fldmember_login_URLLink; ?>?member_id=<?php echo $fldmember_login_member_id; ?>&<?php echo $transit_params; ?>">
-           <span class="btn btn-info"><?php echo $fldmember_login; ?></span></a>&nbsp;</span></td>
+         <a href="<?php echo $fldField1_URLLink; ?>?order_id=<?php echo $fldField1_order_id; ?>&<?php echo $transit_params; ?>">
+           <span class="btn btn-info"><?php echo $fldField1; ?></span></a>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-      <?php echo tohtml($fldname); ?>&nbsp;</span></td>
+      <?php echo tohtml($flditem_id); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-      <?php echo tohtml($fldlast_name); ?>&nbsp;</span></td>
+      <?php echo tohtml($fldmember_id); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-      <?php $fldmember_level = get_lov_value($fldmember_level, $amember_level); ?>
-      <?php echo tohtml($fldmember_level); ?>&nbsp;</span></td>
-      </tr>
-
-      <?php
+      <?php echo tohtml($fldquantity); ?>&nbsp;</span></td>
+      </tr><?php
 //-------------------------------
-// Members Show end
+// Orders Show end
 //-------------------------------
 
 //-------------------------------
 // Move to the next record and increase record counter
 //-------------------------------
+
     $iCounter++;
   }
 
@@ -348,40 +361,40 @@ function Members_show()
     <tr>
      <td colspan="4" style="background-color: #FFFFFF; border-style: inset; border-width: 0">
        <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">
-         <a href="<?php echo  $form_action; ?>?<?php echo  $transit_params; ?>">
-           <span class="btn btn-success">Insert Members</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <a href="<?php echo $form_action; ?>?<?php echo $transit_params; ?>">
+           <span class="btn btn-success">Insert Reservation</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <?php
-  // Members Navigation begin
+  // Orders Navigation begin
   $bEof = $next_record;
   if($bEof || $iPage != 1)
   {
     if ($iPage == 1) {
 ?>
-            <span class="btn btn-success">Back</span>
+        <span class="btn btn-success">Back</span>
 <?php }
     else {
 ?>
-            <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?><?php echo $sSortParams; ?>FormMembers_Page=<?php echo $iPage - 1; ?>#Members">
-              <span class="btn btn-success">Back</span></a>
+        <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?><?php  echo $sSortParams; ?>FormOrders_Page=<?php echo $iPage - 1; ?>#Orders">
+          <span class="btn btn-success">Back</span></a>
 <?php
     }
     echo "&nbsp;[&nbsp;" . $iPage . "&nbsp;]&nbsp;";
 
     if (!$bEof) {
 ?>
-            <span class="btn btn-success">Next</span>
+          <span class="btn btn-success">Next</span>
 <?php
     }
     else {
 ?>
-            <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?><?php echo $sSortParams; ?>FormMembers_Page=<?php echo $iPage + 1; ?>#Members">
-              <span class="btn btn-success">Next</span></a>
+        <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?><?php echo $sSortParams; ?>FormOrders_Page=<?php echo $iPage + 1; ?>#Orders">
+          <span class="btn btn-success">Next</span></a>
 <?php
     }
   }
 
 //-------------------------------
-// Members Navigation end
+// Orders Navigation end
 //-------------------------------
 
 //-------------------------------
@@ -394,8 +407,8 @@ function Members_show()
 
 
 //-------------------------------
-// Members Close Event begin
-// Members Close Event end
+// Orders Close Event begin
+// Orders Close Event end
 //-------------------------------
 }
 //===============================

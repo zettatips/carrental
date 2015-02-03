@@ -24,6 +24,7 @@ function Header_show()
   $fldShop = "Reservation.php";
   $fldField1 = "Login.php";
   $fldAdmin = "AdminMenu.php";
+  $fldCompAdmin = "CompAdminMenu.php";
   $fldCars = "Cars.php";
   //-------------------------------
   // Menu Show begin
@@ -95,10 +96,11 @@ function Header_show()
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <?php
-            if(get_session("UserRights") > 1)
-            {
+            if(get_session("UserRights") == 3)
               echo "<li><a href=\" $fldAdmin \">Admin</a></li>";
-            }
+
+            else if(get_session("UserRights") == 2)
+              echo "<li><a href=\" $fldCompAdmin \">Company Admin</a></li>";
             else
               echo "";
           ?>

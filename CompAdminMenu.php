@@ -1,17 +1,17 @@
 <?php
 /*********************************************************************************
- *       Filename: AdminMenu.php
- *       PHP 5.3.29 build 10/12/2014
+ *       Filename: CompAdminMenu.php
+ *       PHP 5.3.29 build 2/2/2015
  *********************************************************************************/
 
 //-------------------------------
-// AdminMenu CustomIncludes begin
+// CompAdminMenu CustomIncludes begin
 
 include ("./common.php");
 include ("./Header.php");
 include ("./Footer.php");
 
-// AdminMenu CustomIncludes end
+// CompAdminMenu CustomIncludes end
 //-------------------------------
 
 session_start();
@@ -19,14 +19,13 @@ session_start();
 //===============================
 // Save Page and File Name available into variables
 //-------------------------------
-$sFileName = "AdminMenu.php";
+$sFileName = "CompCompAdminMenu.php";
 //===============================
 
-
 //===============================
-// AdminMenu PageSecurity begin
-check_security(3);
-// AdminMenu PageSecurity end
+// CompAdminMenu PageSecurity begin
+check_security(2);
+// CompAdminMenu PageSecurity end
 //===============================
 
 //===============================
@@ -36,7 +35,7 @@ $sAction = get_param("FormAction");
 $sForm = get_param("FormName");
 //===============================
 
-// AdminMenu Show begin
+// CompAdminMenu Show begin
 
 //===============================
 // Display page
@@ -70,14 +69,13 @@ $sForm = get_param("FormName");
 </html>
 <?php
 
-// AdminMenu Show end
+// CompAdminMenu Show end
 
 //===============================
-// AdminMenu Close Event begin
-// AdminMenu Close Event end
+// CompAdminMenu Close Event begin
+// CompAdminMenu Close Event end
 //===============================
 //********************************************************************************
-
 
 //===============================
 // Display Menu Form
@@ -85,7 +83,7 @@ $sForm = get_param("FormName");
 function Form_show()
 {
   global $db;
-  $sFormTitle = "Administration Menu";
+  $sFormTitle = "Company Administration Menu";
 
 //-------------------------------
 // Form Open Event begin
@@ -95,9 +93,8 @@ function Form_show()
 //-------------------------------
 // Set URLs
 //-------------------------------
-  $fldField1 = "MembersGrid.php";
-  $fldField2 = "OrdersGrid.php";
-  $fldField3 = "AdminVehicle.php";
+  $fldField2 = "CompOrdersGrid.php";
+  $fldField3 = "CompAdminVehicle.php";
 //-------------------------------
 // Form Show begin
 //-------------------------------
@@ -121,10 +118,6 @@ function Form_show()
         </tr>
       </thead>
      <tr>
-      <td align="Center"><a href="<?php echo $fldField1; ?>">
-        <span class="btn btn-success">Members</span></a></td>
-     </tr>
-     <tr>
       <td align="Center"><a href="<?php echo $fldField2; ?>">
         <span class="btn btn-success">Reservation</span></a></td>
      </tr>
@@ -136,9 +129,11 @@ function Form_show()
     <br />
 
 <?php
+
 //-------------------------------
 // Form Show end
 //-------------------------------
 }
 //===============================
+
 ?>

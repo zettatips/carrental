@@ -1,17 +1,17 @@
 <?php
 /*********************************************************************************
- *       Filename: VehicleMaint.php
- *       PHP 4.0 build 11/30/2001
+ *       Filename: CompVehicleMaint.php
+ *       PHP 5.3.29 build 3/2/2015
  *********************************************************************************/
 
 //-------------------------------
-// VehicleMaint CustomIncludes begin
+// CompVehicleMaint CustomIncludes begin
 
 include ("./common.php");
 include ("./Header.php");
 include ("./Footer.php");
 
-// VehicleMaint CustomIncludes end
+// CompVehicleMaint CustomIncludes end
 //-------------------------------
 
 session_start();
@@ -19,23 +19,23 @@ session_start();
 //===============================
 // Save Page and File Name available into variables
 //-------------------------------
-$sFileName = "VehicleMaint.php";
+$sFileName = "CompVehicleMaint.php";
 //===============================
 
 //===============================
-// VehicleMaint PageSecurity begin
+// CompVehicleMaint PageSecurity begin
 check_security(2);
-// VehicleMaint PageSecurity end
+// CompVehicleMaint PageSecurity end
 //===============================
 
 //===============================
-// VehicleMaint Open Event begin
-// VehicleMaint Open Event end
+// CompVehicleMaint Open Event begin
+// CompVehicleMaint Open Event end
 //===============================
 
 //===============================
-// VehicleMaint OpenAnyPage Event start
-// VehicleMaint OpenAnyPage Event end
+// CompVehicleMaint OpenAnyPage Event start
+// CompVehicleMaint OpenAnyPage Event end
 //===============================
 
 //===============================
@@ -45,7 +45,7 @@ $sAction = get_param("FormAction");
 $sForm = get_param("FormName");
 //===============================
 
-// VehicleMaint Show begin
+// CompVehicleMaint Show begin
 
 //===============================
 // Perform the form's action
@@ -102,11 +102,11 @@ switch ($sForm) {
 </html>
 
 <?php
-// VehicleMaint Show end
+// CompVehicleMaint Show end
 
 //===============================
-// VehicleMaint Close Event begin
-// VehicleMaint Close Event end
+// CompVehicleMaint Close Event begin
+// CompVehicleMaint Close Event end
 //===============================
 //********************************************************************************
 
@@ -134,13 +134,13 @@ function Vehicle_action($sAction)
   $fldprice = "";
   $fldimage_url = "";
   $fldnotes = "";
-  $fldis_recommended = "";
+
 //-------------------------------
 
 //-------------------------------
 // Vehicle Action begin
 //-------------------------------
-  $sActionFileName = "AdminVehicle.php";
+  $sActionFileName = "CompAdminVehicle.php";
   $sParams .= "company_id=" . urlencode(get_param("Trn_company_id"));
 
 //-------------------------------
@@ -179,7 +179,8 @@ function Vehicle_action($sAction)
   $fldprice = get_param("price");
   $fldimage_url = get_param("image_url");
   $fldnotes = get_param("notes");
-  $fldis_recommended = get_checkbox_value(get_param("is_recommended"), "1", "0", "Number");
+  $fldis_recommended = "0";
+
 
 //-------------------------------
 // Validate fields
@@ -320,11 +321,11 @@ function Vehicle_show()
      </thead>
      <?php if ($sVehicleErr) { ?>
       <thead>
-  		    <tr><td style="background-color: #FFFFFF; border-width: 1" colspan="2">
+          <tr><td style="background-color: #FFFFFF; border-width: 1" colspan="2">
             <span style="font-size: 12pt; color: #000000"><?php echo $sVehicleErr ?></span></td>
           </tr>
       </thead>
-  	 <?php } ?>
+     <?php } ?>
 <?php
 
 //-------------------------------
@@ -346,7 +347,7 @@ function Vehicle_show()
     $fldprice = strip(get_param("price"));
     $fldimage_url = strip(get_param("image_url"));
     $fldnotes = strip(get_param("notes"));
-    $fldis_recommended = get_checkbox_value(get_param("is_recommended"), "1", "0", "Number");
+    $fldis_recommended = "0";
     $trn_company_id = get_param("Trn_company_id");
     $pitem_id = get_param("PK_item_id");
   }
@@ -495,20 +496,7 @@ function Vehicle_show()
            <textarea class="form-control" name="notes" cols="60" rows="8"><?php echo tohtml($fldnotes); ?></textarea></span>
        </td>
      </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Recommended</span>
-       </td>
-       <td>
-         <span style="font-size: 12pt; color: #000000">
-      <?php if(strtolower($fldis_recommended) == strtolower("1")) { ?>
-        <input CHECKED type="checkbox" name="is_recommended">
-      <?php } else {?>
-        <input type="checkbox" name="is_recommended">
-      <?php } ?>
-</span>
-       </td>
-     </tr>
+
     <tr><td colspan="2" align="right">
 <?php if (!$bIsUpdateMode) { ?>
    <input type="hidden" value="insert" name="FormAction">

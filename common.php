@@ -222,10 +222,21 @@ function get_lov_value($value, $array)
 function check_security($security_level)
 {
   if(!isset($_SESSION['UserID']))
-    header ("Location: Login.php?querystring=" . urlencode(getenv("QUERY_STRING")) . "&ret_page=" . urlencode(getenv("REQUEST_URI")));
+    {
+      unset($_SESSION['UserID']);
+      unset($_SESSION['UserRights']);
+      session_destroy();
+      header ("Location: Login.php?querystring=" . urlencode(getenv("QUERY_STRING")) . "&ret_page=" . urlencode(getenv("REQUEST_URI")));
+    }
+
   else
     if(!isset($_SESSION['UserRights']) || $_SESSION['UserRights'] < $security_level)
+    {
+      unset($_SESSION['UserID']);
+      unset($_SESSION['UserRights']);
+      session_destroy();
       header ("Location: Login.php?querystring=" . urlencode(getenv("QUERY_STRING")) . "&ret_page=" . urlencode(getenv("REQUEST_URI")));
+    }    
 }
 
 //===============================

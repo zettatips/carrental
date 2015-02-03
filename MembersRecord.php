@@ -25,7 +25,7 @@ $sFileName = "MembersRecord.php";
 
 //===============================
 // MembersRecord PageSecurity begin
-check_security(2);
+check_security(3);
 // MembersRecord PageSecurity end
 //===============================
 
@@ -495,7 +495,7 @@ function Members_show()
        <td>
          <span style="font-size: 12pt; color: #000000"><select size="1" class="form-control" name="member_level">
 <?php
-    $LOV = explode(";", "1;Member;2;Administrator");
+    $LOV = explode(";", "1;Member;2;Company Administrator");
 
     if(sizeof($LOV)%2 != 0)
       $array_length = sizeof($LOV) - 1;

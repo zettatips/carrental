@@ -243,11 +243,10 @@ function Detail_show()
   $flditem_id = "";
   $fldname = "";
   $fldmodel = "";
-  $fldcategory_id = "";
+  $fldcompany_id = "";
   $fldprice = "";
   $fldimage_url = "";
   $fldnotes = "";
-  $fldproduct_url = "";
 //-------------------------------
 // Detail Show begin
 //-------------------------------
@@ -320,7 +319,7 @@ function Detail_show()
 //-------------------------------
   if($bIsUpdateMode)
   {
-    $fldcategory_id = $db->f("category_id");
+    $fldcompany_id = $db->f("company_id");
     $fldimage_url_URLLink = $db->f("product_url");
     $fldimage_url = $db->f("image_url");
     $flditem_id = $db->f("item_id");
@@ -328,8 +327,7 @@ function Detail_show()
     $fldname = $db->f("name");
     $fldnotes = $db->f("notes");
     $fldprice = $db->f("price");
-    $fldproduct_url_URLLink = $db->f("product_url");
-    $fldproduct_url = $db->f("product_url");
+
 //-------------------------------
 // Detail ShowEdit Event begin
 // Detail ShowEdit Event end
@@ -349,13 +347,13 @@ function Detail_show()
 //-------------------------------
 // Set lookup fields
 //-------------------------------
-  $fldcategory_id = get_db_value("SELECT name FROM categories WHERE category_id=" . tosql($fldcategory_id, "Number"));
+  $fldcompany_id = get_db_value("SELECT company_name FROM companies WHERE company_id=" . tosql($fldcompany_id, "Number"));
   if($sDetailErr == "")
   {
 //-------------------------------
 // Detail Show Event begin
 $fldimage_url="<img style=\"border: 1px solid black\" src=" . $fldimage_url . ">";
-$fldproduct_url="Review this Vehicle on Philmar.com";
+
 // Detail Show Event end
 //-------------------------------
   }
@@ -384,11 +382,11 @@ $fldproduct_url="Review this Vehicle on Philmar.com";
      </tr>
       <tr>
        <td>
-         <span style="font-size: 12pt; color: #000000">Category</span>
+         <span style="font-size: 12pt; color: #000000">Company</span>
        </td>
        <td style="background-color: #FFFFFF; border-width: 1">
          <span style="font-size: 12pt; color: #000000">
-      <?php echo tohtml($fldcategory_id); ?>&nbsp;</span>
+      <?php echo tohtml($fldcompany_id); ?>&nbsp;</span>
        </td>
      </tr>
       <tr>
@@ -465,7 +463,6 @@ function Order_action($sAction)
   $flditem_id = "";
   $fldreservation_type = "";
   $fldquantity = "";
-  $fldlocation = "";
   $fldpulocation = "";
   $fldpudate = "";
   $fldpuday = "";
@@ -502,7 +499,6 @@ function Order_action($sAction)
   $flditem_id = get_param("item_id");
   $fldreservation_type = get_param("reservation_type");
   $fldquantity = get_param("quantity");
-  $fldlocation = get_param("location");
   $fldpulocation = get_param("pulocation");
   $fldpudate = get_param("pudate");
   $fldpuday = get_param("puday");
@@ -522,9 +518,6 @@ function Order_action($sAction)
 
     if(!strlen($fldquantity))
       $sOrderErr .= "The value in field No. of Hour(s) * is required.<br>";
-
-    if(!strlen($fldlocation))
-      $sOrderErr .= "The value in field Destination Location * is required.<br>";
 
     if(!strlen($fldpulocation))
       $sOrderErr .= "The value in field Pick-Up Location * is required.<br>";
@@ -580,7 +573,6 @@ function Order_action($sAction)
           "item_id," .
           "reservation_type," .
           "quantity," .
-          "location," .
           "pulocation," .
           "pudate," .
           "puday," .
@@ -594,7 +586,6 @@ function Order_action($sAction)
           tosql($flditem_id, "Number") . "," .
           tosql($fldreservation_type, "Text") . "," .
           tosql($fldquantity, "Number") . "," .
-          tosql($fldlocation, "Text") . "," .
           tosql($fldpulocation, "Text") . "," .
           tosql($fldpudate, "Text") . "," .
           tosql($fldpuday, "Text") . "," .
@@ -641,7 +632,6 @@ function Order_show()
   $flditem_id = "";
   $fldreservation_type = "";
   $fldquantity = "";
-  $fldlocation = "";
   $fldpulocation = "";
   $fldpudate = "";
   $fldpuday = "";
@@ -690,7 +680,6 @@ function Order_show()
     $flditem_id = strip(get_param("item_id"));
     $fldreservation_type = strip(get_param("reservation_type"));
     $fldquantity = strip(get_param("quantity"));
-    $fldlocation = strip(get_param("location"));
     $fldpulocation = strip(get_param("pulocation"));
     $fldpudate = strip(get_param("pudate"));
     $fldpuday = strip(get_param("puday"));
@@ -744,7 +733,6 @@ function Order_show()
     {
       $fldreservation_type = $db->f("reservation_type");
       $fldquantity = $db->f("quantity");
-      $fldlocation = $db->f("location");
       $fldpulocation = $db->f("pulocation");
       $fldpudate = $db->f("pudate");
       $fldpuday = $db->f("puday");
@@ -813,15 +801,6 @@ function Order_show()
        <td style="background-color: #FFFFFF; border-width: 1">
          <span style="font-size: 12pt; color: #000000">
            <input class="form-control" type="text" name="quantity" maxlength="10" value="<?php echo tohtml($fldquantity); ?>" size="10" ></span>
-       </td>
-     </tr>
-      <tr>
-       <td>
-         <span style="font-size: 12pt; color: #000000">Destination Location *</span>
-       </td>
-       <td style="background-color: #FFFFFF; border-width: 1">
-         <span style="font-size: 12pt; color: #000000">
-           <input class="form-control" type="text" name="location" maxlength="50" value="<?php echo tohtml($fldlocation); ?>" size="50" ></span>
        </td>
      </tr>
       <tr>
@@ -1083,15 +1062,12 @@ function TermsCondition_show()
 //-------------------------------
 // Show fields
 //-------------------------------
-
 ?>
 
 <?php
-
 //-------------------------------
 // TermsCondition Show end
 //-------------------------------
 }
 //===============================
-
 ?>
