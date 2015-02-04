@@ -1,7 +1,7 @@
 <?php
 /*********************************************************************************
  *       Filename: OrdersGrid.php
- *       PHP 5.3.29 build 10/12/2014
+ *       PHP 5.3.29 build 3/2/2015
  *********************************************************************************/
 
 //-------------------------------
@@ -95,8 +95,6 @@ function Orders_show()
 //-------------------------------
 // Initialize variables
 //-------------------------------
-
-
   global $db;
   global $sOrdersErr;
   global $sFileName;
@@ -160,10 +158,7 @@ function Orders_show()
         </tr>
       </thead>
         <tr>
-         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1"><a >
-           <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Edit</span></a></td>
-         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1">
-           <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormOrders_Sorting=1&FormOrders_Sorted=<?php echo $form_sorting; ?>&">
+         <td style="background-color: #FFFFFF; border-style: inset; border-width: 1"><a>
              <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">Vehicle #</span></a></td>
          <td style="background-color: #FFFFFF; border-style: inset; border-width: 1">
            <a href="<?php echo $sFileName; ?>?<?php echo $form_params; ?>FormOrders_Sorting=2&FormOrders_Sorted=<?php echo $form_sorting; ?>&">
@@ -188,6 +183,7 @@ function Orders_show()
     $HasParam = true;
     $sWhere = $sWhere . "o.item_id=" . $pitem_id;
   }
+
   $pmember_id = get_param("member_id");
   if(is_number($pmember_id) && strlen($pmember_id))
     $pmember_id = tosql($pmember_id, "Number");
@@ -206,6 +202,7 @@ function Orders_show()
   if($HasParam)
     $sWhere = " AND (" . $sWhere . ")";
 
+  $CompID = get_session("CompID");
 
 //-------------------------------
 // Build base SQL statement
@@ -217,9 +214,10 @@ function Orders_show()
     "i.item_id as i_item_id, " .
     "i.name as i_name, " .
     "m.member_id as m_member_id, " .
-    "m.member_login as m_member_login " .
+    "m.member_login as m_member_login, " .
+    "m.company_id as m_company_id " .
     " from orders o, items i, members m " .
-    " where i.item_id=o.item_id and m.member_id=o.member_id  ";
+    " where i.item_id=o.item_id and m.member_id=o.member_id and i.company_id='$CompID' ";
 //-------------------------------
 
 //-------------------------------
@@ -261,12 +259,7 @@ function Orders_show()
 //  The insert link.
 //-------------------------------
 ?>
-    <tr>
-     <td colspan="4" style="background-color: #FFFFFF; border-style: inset; border-width: 0">
-       <span style="font-size: 12pt; color: #CE7E00; font-weight: bold"><a href="<?php echo $form_action; ?>?<?php echo $transit_params; ?>">
-         <span class="btn btn-success">Insert Reservation</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<?php
-?>
+
   </table>
 <?php
 
@@ -303,6 +296,7 @@ function Orders_show()
 //-------------------------------
 // Display grid based on recordset
 //-------------------------------
+
   while($next_record  && $iCounter < $iRecordsPerPage)
   {
 //-------------------------------
@@ -315,7 +309,9 @@ function Orders_show()
     $fldorder_id = $db->f("o_order_id");
     $fldquantity = $db->f("o_quantity");
     $fldField1= "Edit";
+
     $next_record = $db->next_record();
+
 
 //-------------------------------
 // Orders Show begin
@@ -333,9 +329,6 @@ function Orders_show()
 ?>
       <tr>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
-         <a href="<?php echo $fldField1_URLLink; ?>?order_id=<?php echo $fldField1_order_id; ?>&<?php echo $transit_params; ?>">
-           <span class="btn btn-info"><?php echo $fldField1; ?></span></a>&nbsp;</span></td>
-       <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
       <?php echo tohtml($flditem_id); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
       <?php echo tohtml($fldmember_id); ?>&nbsp;</span></td>
@@ -349,20 +342,14 @@ function Orders_show()
 //-------------------------------
 // Move to the next record and increase record counter
 //-------------------------------
-
     $iCounter++;
   }
-
 
 //-------------------------------
 //  Grid. The insert link and record navigator.
 //-------------------------------
 ?>
-    <tr>
-     <td colspan="4" style="background-color: #FFFFFF; border-style: inset; border-width: 0">
-       <span style="font-size: 12pt; color: #CE7E00; font-weight: bold">
-         <a href="<?php echo $form_action; ?>?<?php echo $transit_params; ?>">
-           <span class="btn btn-success">Insert Reservation</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 <?php
   // Orders Navigation begin
   $bEof = $next_record;

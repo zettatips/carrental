@@ -71,7 +71,7 @@ $sForm = get_param("FormName");
 <div class="col-md-6">
   <?php Items_show() ?>
 <br />
-<?php var_dump($_SESSION); ?>
+
 </div>
 <div class="col-md-3"></div>
 
@@ -192,10 +192,12 @@ function Items_show()
     $sWhere = $sWhere . "i.company_id=" . $pcompany_id;
   }
 
+
   if($HasParam)
     $sWhere = " AND (" . $sWhere . ")";
 
-
+  $UserName = get_session("UserName");
+  $CompID = get_session("CompID");
 //-------------------------------
 // Build base SQL statement
 //-------------------------------
@@ -206,8 +208,8 @@ function Items_show()
     "i.price as i_price, " .
     "c.company_id as c_company_id, " .
     "c.company_name as c_name " .
-    " from items i, companies c" .
-    " where c.company_id=i.company_id  ";
+    " from items i, companies c, members m" .
+    " where i.company_id='$CompID' and m.company_id='$CompID' and c.company_id='$CompID'  ";
 //-------------------------------
 
 //-------------------------------
@@ -334,7 +336,8 @@ function Items_show()
       <?php echo tohtml($fldprice); ?>&nbsp;</span></td>
        <td style="background-color: #FFFFFF; border-width: 1"><span style="font-size: 12pt; color: #000000">
       <?php echo tohtml($fldcompany_id); ?>&nbsp;</span></td>
-      </tr><?php
+      </tr>
+<?php
 //-------------------------------
 // Items Show end
 //-------------------------------
@@ -342,10 +345,8 @@ function Items_show()
 //-------------------------------
 // Move to the next record and increase record counter
 //-------------------------------
-
     $iCounter++;
   }
-
 
 //-------------------------------
 //  Grid. The insert link and record navigator.

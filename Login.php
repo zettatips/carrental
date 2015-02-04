@@ -125,7 +125,7 @@ function Login_action($sAction)
 //-------------------------------
       $sLogin = get_param("Login");
       $sPassword = get_param("Password");
-      $db->query("SELECT member_id,member_level FROM members WHERE member_login =" . tosql($sLogin, "Text") . " AND member_password=" . tosql($sPassword, "Text"));
+      $db->query("SELECT member_id,member_level, member_login, company_id FROM members WHERE member_login =" . tosql($sLogin, "Text") . " AND member_password=" . tosql($sPassword, "Text"));
       $is_passed = $db->next_record();
 
 //-------------------------------
@@ -139,6 +139,8 @@ function Login_action($sAction)
 //-------------------------------
         set_session("UserID", $db->f("member_id"));
         set_session("UserRights", $db->f("member_level"));
+        set_session("UserName", $db->f("member_login"));
+        set_session("CompID", $db->f("company_id"));
 
         $sPage = get_param("ret_page");
         if (strlen($sPage))
