@@ -1,4 +1,4 @@
-carrental
-=========
+E-Car Rental
+=============
 
-First freelance project 
+E-Car Rental based on PHP and mySQL database. 
